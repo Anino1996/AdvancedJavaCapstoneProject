@@ -91,7 +91,7 @@ Your REST API must allow the end user to:
         description varchar(255) not null,
         price decimal(5, 2) not null,
         studio varchar(50) not null,
-        quantity int(11)
+        orderQuantity int(11)
     );
     
     create table if not exists console (
@@ -101,7 +101,7 @@ Your REST API must allow the end user to:
         memory_amount varchar(20),
         processor varchar(20),
         price decimal(5, 2) not null,
-        quantity int(11) not null
+        orderQuantity int(11) not null
     );
     
     create table if not exists t_shirt (
@@ -110,7 +110,7 @@ Your REST API must allow the end user to:
         color varchar(20) not null,
         description varchar(255) not null,
         price decimal(5,2) not null,
-        quantity int(11) not null
+        orderQuantity int(11) not null
     );
     
     create table if not exists sales_tax_rate (
@@ -137,7 +137,7 @@ Your REST API must allow the end user to:
         item_type varchar(20) not null,
         item_id int(11) not null,
         unit_price decimal(5,2) not null,
-        quantity int(11) not null,
+        orderQuantity int(11) not null,
         subtotal decimal(11,2) not null,
         tax decimal(5,2) not null,
         processing_fee decimal (5,2) not null,
@@ -161,9 +161,9 @@ Your REST API must allow the end user to:
 1. Sales tax applies only to the cost of the items.
 2. Sales tax does not apply to any processing fees for an invoice.
 3. The processing fee is applied only once per order regardless of the number of items in the order unless the number of items on the order is greater than 10 in which case an additional processing fee of $15.49 is applied to the order.
-4. The order process logic must properly update the quantity on hand for the item in the order.
-5. Order quantity must be greater than zero.
-6. Order quantity must be less than or equal to the number of items on hand in inventory.
+4. The order process logic must properly update the orderQuantity on hand for the item in the order.
+5. Order orderQuantity must be greater than zero.
+6. Order orderQuantity must be less than or equal to the number of items on hand in inventory.
 7. Order must contain a valid state code.
 8. The REST API must properly handle and report all violations of business rules.
 
