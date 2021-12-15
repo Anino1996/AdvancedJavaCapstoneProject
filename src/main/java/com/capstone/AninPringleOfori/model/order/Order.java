@@ -26,7 +26,7 @@ public class Order {
     public int itemId;
 
     @Min(value = 1, message = "Quantity cannot be less than 1.")
-    public int quantity;
+    public int orderQuantity;
 
     public String getName() {
         return name;
@@ -84,11 +84,11 @@ public class Order {
         this.itemId = itemId;
     }
 
-    public int getQuantity() {
-        return quantity;
+    public int getOrderQuantity() {
+        return orderQuantity;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+    public void setOrderQuantity(int orderQuantity) {
+        this.orderQuantity = orderQuantity;
     }
 }

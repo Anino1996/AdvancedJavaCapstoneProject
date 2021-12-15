@@ -10,8 +10,8 @@ public class Game implements Item {
     @Min(value = 0, message = "price cannot be negative.")
     public double price;
 
-    @Min(value = 0, message = "quantity cannot be negative.")
-    public int quantity;
+    @Min(value = 0, message = "orderQuantity cannot be negative.")
+    public int orderQuantity;
 
     @NotNull(message = "Title cannot be empty")
     public String title;
@@ -26,14 +26,14 @@ public class Game implements Item {
 
     public Game() { }
 
-    public Game (int gameId, String title, String esrbRating, String description, double price, String studio, int quantity) {
+    public Game (int gameId, String title, String esrbRating, String description, double price, String studio, int orderQuantity) {
         this.id = gameId;
         this.title = title;
         this.esrbRating = esrbRating;
         this.description = description;
         this.price = price;
         this.studio = studio;
-        this.quantity = quantity;
+        this.orderQuantity = orderQuantity;
     }
 
     public int getId() { return id; }
@@ -44,9 +44,9 @@ public class Game implements Item {
 
     public void setPrice(double price) { this.price = price; }
 
-    public int getQuantity() { return quantity; }
+    public int getOrderQuantity() { return orderQuantity; }
 
-    public void setQuantity(int quantity) { this.quantity = quantity; }
+    public void setOrderQuantity(int orderQuantity) { this.orderQuantity = orderQuantity; }
 
     public String getTitle() { return title; }
 
@@ -83,11 +83,11 @@ public class Game implements Item {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Game game = (Game) o;
-        return Double.compare(game.getPrice(), getPrice()) == 0 && getQuantity() == game.getQuantity() && getTitle().equals(game.getTitle()) && getEsrbRating().equals(game.getEsrbRating()) && getDescription().equals(game.getDescription()) && getStudio().equals(game.getStudio());
+        return Double.compare(game.getPrice(), getPrice()) == 0 && getOrderQuantity() == game.getOrderQuantity() && getTitle().equals(game.getTitle()) && getEsrbRating().equals(game.getEsrbRating()) && getDescription().equals(game.getDescription()) && getStudio().equals(game.getStudio());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getTitle(), getEsrbRating(), getDescription(), getPrice(), getStudio(), getQuantity());
+        return Objects.hash(getTitle(), getEsrbRating(), getDescription(), getPrice(), getStudio(), getOrderQuantity());
     }
 }

@@ -10,8 +10,8 @@ public class TShirt implements Item {
     @Min(value = 0, message = "price cannot be negative.")
     public double price;
 
-    @Min(value = 0, message = "quantity cannot be negative.")
-    public int quantity;
+    @Min(value = 0, message = "orderQuantity cannot be negative.")
+    public int orderQuantity;
 
     @NotNull(message = "size must be specified.")
     public String size;
@@ -24,13 +24,13 @@ public class TShirt implements Item {
     public TShirt() {
     }
 
-    public TShirt(int tShirtId, String size, String color, String description, double price, int quantity) {
+    public TShirt(int tShirtId, String size, String color, String description, double price, int orderQuantity) {
         this.id = tShirtId;
         this.size = size;
         this.color = color;
         this.description = description;
         this.price = price;
-        this.quantity = quantity;
+        this.orderQuantity = orderQuantity;
     }
 
     public int getId() { return id; }
@@ -41,9 +41,9 @@ public class TShirt implements Item {
 
     public void setPrice(double price) { this.price = price; }
 
-    public int getQuantity() { return quantity; }
+    public int getOrderQuantity() { return orderQuantity; }
 
-    public void setQuantity(int quantity) { this.quantity = quantity; }
+    public void setOrderQuantity(int orderQuantity) { this.orderQuantity = orderQuantity; }
 
     public String getSize() {
         return size;
@@ -75,7 +75,7 @@ public class TShirt implements Item {
         if (o == null || getClass() != o.getClass()) return false;
         TShirt tShirt = (TShirt) o;
         return Double.compare(tShirt.getPrice(), getPrice()) == 0 &&
-                getQuantity() == tShirt.getQuantity() &&
+                getOrderQuantity() == tShirt.getOrderQuantity() &&
                 getSize().equals(tShirt.getSize()) &&
                 getColor().equals(tShirt.getColor()) &&
                 getDescription().equals(tShirt.getDescription());
@@ -83,6 +83,6 @@ public class TShirt implements Item {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getSize(), getColor(), getDescription(), getPrice(), getQuantity());
+        return Objects.hash(getSize(), getColor(), getDescription(), getPrice(), getOrderQuantity());
     }
 }

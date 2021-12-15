@@ -12,7 +12,7 @@ public interface Item {
 
     public void setPrice(double price);
 
-    public int getQuantity();
+    public int getOrderQuantity();
 
-    public void setQuantity(int quantity);
+    public void setOrderQuantity(int quantity);
 }

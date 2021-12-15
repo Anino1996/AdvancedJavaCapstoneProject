@@ -33,7 +33,7 @@ public class OrderController {
         orderViewModel.setZipCode(order.getZipCode());
         orderViewModel.setItemType(order.getItemType());
         orderViewModel.setItem(itemDao.findById(order.getItemId()));
-        orderViewModel.setOrderQuantity(order.getQuantity());
+        orderViewModel.setOrderQuantity(order.getOrderQuantity());
 
         return serviceLayer.generateInvoice(orderViewModel);
     }

@@ -10,8 +10,8 @@ public class Console implements Item {
     @Min(value = 0, message = "price cannot be negative.")
     public double price;
 
-    @Min(value = 0, message = "quantity cannot be negative.")
-    public int quantity;
+    @Min(value = 0, message = "orderQuantity cannot be negative.")
+    public int orderQuantity;
 
     @NotNull(message = "Title cannot be empty")
     public String model;
@@ -27,10 +27,10 @@ public class Console implements Item {
     public Console() {
     }
 
-    public Console(int id, String model, String manufacturer, String memoryAmount, String processor, double price, int quantity) {
+    public Console(int id, String model, String manufacturer, String memoryAmount, String processor, double price, int orderQuantity) {
         this.id = id;
         this.price = price;
-        this.quantity = quantity;
+        this.orderQuantity = orderQuantity;
         this.model = model;
         this.manufacturer = manufacturer;
         this.memoryAmount = memoryAmount;
@@ -90,13 +90,13 @@ public class Console implements Item {
     }
 
     @Override
-    public int getQuantity() {
-        return quantity;
+    public int getOrderQuantity() {
+        return orderQuantity;
     }
 
     @Override
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+    public void setOrderQuantity(int orderQuantity) {
+        this.orderQuantity = orderQuantity;
     }
 
     @Override
@@ -105,7 +105,7 @@ public class Console implements Item {
         if (o == null || getClass() != o.getClass()) return false;
         Console console = (Console) o;
         return Double.compare(console.getPrice(), getPrice()) == 0 &&
-                getQuantity() == console.getQuantity() &&
+                getOrderQuantity() == console.getOrderQuantity() &&
                 getModel().equals(console.getModel()) &&
                 getManufacturer().equals(console.getManufacturer()) &&
                 getMemoryAmount().equals(console.getMemoryAmount()) &&
@@ -114,6 +114,6 @@ public class Console implements Item {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getPrice(), getQuantity(), getModel(), getManufacturer(), getMemoryAmount(), getProcessor());
+        return Objects.hash(getPrice(), getOrderQuantity(), getModel(), getManufacturer(), getMemoryAmount(), getProcessor());
     }
 }

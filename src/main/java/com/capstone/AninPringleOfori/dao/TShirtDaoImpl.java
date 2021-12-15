@@ -12,10 +12,10 @@ import java.util.List;
 
 @Repository
 public class TShirtDaoImpl implements TShirtDao {
-    private static final String ADD_TSHIRT_SQL = "insert into t_shirt(size, color, description, price, quantity) values (?, ?, ?, ?, ?)";
+    private static final String ADD_TSHIRT_SQL = "insert into t_shirt(size, color, description, price, orderQuantity) values (?, ?, ?, ?, ?)";
     private static final String DELETE_TSHIRT_SQL = "delete from t_shirt where t_shirt_id = ?";
     private static final String FIND_TSHIRT_BY_ID_SQL = "select * from t_shirt where t_shirt_id = ?";
-    private static final String UPDATE_TSHIRT_SQL = "update t_shirt set size = ?, color = ?, description = ?, price =?, quantity = ? where t_shirt_id = ?";
+    private static final String UPDATE_TSHIRT_SQL = "update t_shirt set size = ?, color = ?, description = ?, price =?, orderQuantity = ? where t_shirt_id = ?";
     private static final String FIND_ALL_TSHIRTS_SQL = "select * from t_shirt";
     private static final String FIND_BY_COLOR_SQL = "select * from t_shirt where color = ?";
     private static final String FIND_BY_SIZE_SQL = "select * from t_shirt where size = ?";
@@ -34,7 +34,7 @@ public class TShirtDaoImpl implements TShirtDao {
                 tShirt.getColor(),
                 tShirt.getDescription(),
                 tShirt.getPrice(),
-                tShirt.getQuantity());
+                tShirt.getOrderQuantity());
 
         int id = jdbcTemplate.queryForObject("select last_insert_id()", Integer.class);
         tShirt.setId(id);
@@ -53,7 +53,7 @@ public class TShirtDaoImpl implements TShirtDao {
                 tShirt.getColor(),
                 tShirt.getDescription(),
                 tShirt.getPrice(),
-                tShirt.getQuantity(),
+                tShirt.getOrderQuantity(),
                 tShirt.getId());
     }
 
@@ -83,15 +83,15 @@ public class TShirtDaoImpl implements TShirtDao {
                 resultSet.getString("color"),
                 resultSet.getString("description"),
                 resultSet.getDouble("price"),
-                resultSet.getInt("quantity"));
+                resultSet.getInt("orderQuantity"));
     }
 
     @Override
     public void decrementQuantity(Item item, int orderQuantity) {
-        if (orderQuantity > item.getQuantity()) {
-            throw new IllegalArgumentException(String.format("Order quantity cannot be greater than %s", item.getQuantity()));
+        if (orderQuantity > item.getOrderQuantity()) {
+            throw new IllegalArgumentException(String.format("Order quantity cannot be greater than %s", item.getOrderQuantity()));
         }
-        item.setQuantity(item.getQuantity() - orderQuantity);
+        item.setOrderQuantity(item.getOrderQuantity() - orderQuantity);
         updatetShirt((TShirt) item);
     }
 }

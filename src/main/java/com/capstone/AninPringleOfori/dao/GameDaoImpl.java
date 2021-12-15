@@ -12,10 +12,10 @@ import java.util.List;
 
 @Repository
 public class GameDaoImpl implements GameDao {
-    private static final String ADD_GAME_SQL = "insert into game(title, esrb_rating, description, price, studio, quantity) values (?, ?, ?, ?, ?, ?)";
+    private static final String ADD_GAME_SQL = "insert into game(title, esrb_rating, description, price, studio, orderQuantity) values (?, ?, ?, ?, ?, ?)";
     private static final String DELETE_GAME_SQL = "delete from game where game_id = ?";
     private static final String FIND_GAME_BY_ID_SQL = "select * from game where game_id = ?";
-    private static final String UPDATE_GAME_SQL = "update game set title = ?, esrb_rating = ?, description = ?, price =?, studio =?, quantity = ? where game_id = ?";
+    private static final String UPDATE_GAME_SQL = "update game set title = ?, esrb_rating = ?, description = ?, price =?, studio =?, orderQuantity = ? where game_id = ?";
     private static final String FIND_ALL_GAMES_SQL = "select * from game";
     private static final String FIND_BY_STUDIO_SQL = "select * from game where studio = ?";
     private static final String FIND_BY_RATING_SQL = "select * from game where esrb_rating = ?";
@@ -34,7 +34,7 @@ public class GameDaoImpl implements GameDao {
                 game.getDescription(),
                 game.getPrice(),
                 game.getStudio(),
-                game.getQuantity());
+                game.getOrderQuantity());
 
         int id = jdbcTemplate.queryForObject("select last_insert_id()", Integer.class);
         game.setId(id);
@@ -59,7 +59,7 @@ public class GameDaoImpl implements GameDao {
                 game.getDescription(),
                 game.getPrice(),
                 game.getStudio(),
-                game.getQuantity(),
+                game.getOrderQuantity(),
                 game.getId());
     }
 
@@ -91,15 +91,15 @@ public class GameDaoImpl implements GameDao {
                 resultSet.getString("description"),
                 resultSet.getDouble("price"),
                 resultSet.getString("studio"),
-                resultSet.getInt("quantity"));
+                resultSet.getInt("orderQuantity"));
     }
 
     @Override
     public void decrementQuantity(Item item, int orderQuantity) {
-        if (orderQuantity > item.getQuantity()) {
-            throw new IllegalArgumentException(String.format("Order quantity cannot be greater than %s", item.getQuantity()));
+        if (orderQuantity > item.getOrderQuantity()) {
+            throw new IllegalArgumentException(String.format("Order quantity cannot be greater than %s", item.getOrderQuantity()));
         }
-        item.setQuantity(item.getQuantity() - orderQuantity);
+        item.setOrderQuantity(item.getOrderQuantity() - orderQuantity);
         updateGame((Game) item);
     }
 }

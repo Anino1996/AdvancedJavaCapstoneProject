@@ -15,9 +15,7 @@ public class ServiceLayer {
     final ProcessingFeeDao processingFeeDao;
     final SalesTaxRateDao salesTaxRateDao;
     final InvoiceDao invoiceDao;
-    final ConsoleDao consoleDao;
     final ItemDaoFactory daoFactory;
-
 
 
     @Autowired
@@ -27,16 +25,7 @@ public class ServiceLayer {
         this.processingFeeDao = processingFeeDao;
         this.salesTaxRateDao = salesTaxRateDao;
         this.invoiceDao = invoiceDao;
-        this.consoleDao = consoleDao;
         this.daoFactory = new ItemDaoFactory(gameDao, tShirtDao, consoleDao);
-    }
-
-    private double calculateTax(double subtotal, double rate) {
-        return subtotal * rate;
-    }
-
-    private double findProcessingFee(int orderQuantity, ProcessingFee processingFee) {
-        return processingFee.getFee() + (orderQuantity > 10 ? SURGE_PROCESSING_FEE : 0);
     }
 
     @Transactional
@@ -72,6 +61,14 @@ public class ServiceLayer {
         invoice.setTotal(subtotal + totalTax + processingFee);
 
         return invoiceDao.addInvoice(invoice);
+    }
+
+    private double calculateTax(double subtotal, double rate) {
+        return subtotal * rate;
+    }
+
+    private double findProcessingFee(int orderQuantity, ProcessingFee processingFee) {
+        return processingFee.getFee() + (orderQuantity > 10 ? SURGE_PROCESSING_FEE : 0);
     }
 
     public ItemDao getDao(String itemType) {
