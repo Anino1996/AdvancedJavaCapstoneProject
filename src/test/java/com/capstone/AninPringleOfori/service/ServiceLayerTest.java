@@ -7,7 +7,8 @@ import com.capstone.AninPringleOfori.model.item.Console;
 import com.capstone.AninPringleOfori.model.item.Game;
 import com.capstone.AninPringleOfori.model.item.TShirt;
 import com.capstone.AninPringleOfori.model.order.Invoice;
-import com.capstone.AninPringleOfori.view.OrderViewModel;
+import com.capstone.AninPringleOfori.model.order.Order;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -107,19 +108,19 @@ public class ServiceLayerTest {
         expectedInvoice.setTax(0.7182000000000001);
         expectedInvoice.setProcessingFee(1.98);
         expectedInvoice.setTotal(14.6682);
-        
-        OrderViewModel orderViewModel = new OrderViewModel();
-        orderViewModel.setName(name);
-        orderViewModel.setStreet(street);
-        orderViewModel.setCity(city);
-        orderViewModel.setState(state);
-        orderViewModel.setZipCode(zipCode);
-        orderViewModel.setItemType("tshirt");
-        orderViewModel.setItem(tShirt);
-        orderViewModel.setOrderQuantity(3);
+
+        Order order = new Order();
+        order.setName(name);
+        order.setStreet(street);
+        order.setCity(city);
+        order.setState(state);
+        order.setZipCode(zipCode);
+        order.setItemType("tshirt");
+        order.setItemId(tShirt.getId());
+        order.setOrderQuantity(3);
         
 //        ACT
-        Invoice generatedInvoice = serviceLayer.generateInvoice(orderViewModel);
+        Invoice generatedInvoice = serviceLayer.generateInvoice(order);
 
 //        ASSERT
         assertEquals(expectedInvoice, generatedInvoice);
@@ -151,18 +152,18 @@ public class ServiceLayerTest {
         expectedInvoice.setProcessingFee(1.49);
         expectedInvoice.setTotal(224.05819999999997);
 
-        OrderViewModel orderViewModel = new OrderViewModel();
-        orderViewModel.setName(name);
-        orderViewModel.setStreet(street);
-        orderViewModel.setCity(city);
-        orderViewModel.setState(state);
-        orderViewModel.setZipCode(zipCode);
-        orderViewModel.setItemType("game");
-        orderViewModel.setItem(game);
-        orderViewModel.setOrderQuantity(3);
+        Order order = new Order();
+        order.setName(name);
+        order.setStreet(street);
+        order.setCity(city);
+        order.setState(state);
+        order.setZipCode(zipCode);
+        order.setItemType("game");
+        order.setItemId(game.getId());
+        order.setOrderQuantity(3);
 
 //        ACT
-        Invoice generatedInvoice = serviceLayer.generateInvoice(orderViewModel);
+        Invoice generatedInvoice = serviceLayer.generateInvoice(order);
 
 //        ASSERT
         assertEquals(expectedInvoice, generatedInvoice);
@@ -194,18 +195,18 @@ public class ServiceLayerTest {
         expectedInvoice.setProcessingFee(14.99);
         expectedInvoice.setTotal(1601.81);
 
-        OrderViewModel orderViewModel = new OrderViewModel();
-        orderViewModel.setName(name);
-        orderViewModel.setStreet(street);
-        orderViewModel.setCity(city);
-        orderViewModel.setState(state);
-        orderViewModel.setZipCode(zipCode);
-        orderViewModel.setItemType("console");
-        orderViewModel.setItem(console);
-        orderViewModel.setOrderQuantity(3);
+        Order order = new Order();
+        order.setName(name);
+        order.setStreet(street);
+        order.setCity(city);
+        order.setState(state);
+        order.setZipCode(zipCode);
+        order.setItemType("console");
+        order.setItemId(console.getId());
+        order.setOrderQuantity(3);
 
 //        ACT
-        Invoice generatedInvoice = serviceLayer.generateInvoice(orderViewModel);
+        Invoice generatedInvoice = serviceLayer.generateInvoice(order);
 
 //        ASSERT
         assertEquals(expectedInvoice, generatedInvoice);
@@ -222,32 +223,18 @@ public class ServiceLayerTest {
         final String city = "Los Angeles";
         final String state = "CA";
         final String zipCode = "12832";
-        Invoice expectedInvoice = new Invoice();
-        expectedInvoice.setName(name);
-        expectedInvoice.setStreet(street);
-        expectedInvoice.setCity(city);
-        expectedInvoice.setState(state);
-        expectedInvoice.setZipCode(zipCode);
-        expectedInvoice.setItemType("tshirt");
-        expectedInvoice.setItemId(tShirt.getId());
-        expectedInvoice.setUnitPrice(tShirt.getPrice());
-        expectedInvoice.setOrderQuantity(3);
-        expectedInvoice.setSubTotal(11.97);
-        expectedInvoice.setTax(0.7182000000000001);
-        expectedInvoice.setProcessingFee(1.98);
-        expectedInvoice.setTotal(14.6682);
 
-        OrderViewModel orderViewModel = new OrderViewModel();
-        orderViewModel.setName(name);
-        orderViewModel.setStreet(street);
-        orderViewModel.setCity(city);
-        orderViewModel.setState(state);
-        orderViewModel.setZipCode(zipCode);
-        orderViewModel.setItemType("unknown");
-        orderViewModel.setItem(tShirt);
-        orderViewModel.setOrderQuantity(3);
+        Order order = new Order();
+        order.setName(name);
+        order.setStreet(street);
+        order.setCity(city);
+        order.setState(state);
+        order.setZipCode(zipCode);
+        order.setItemType("unknown");
+        order.setItemId(1);
+        order.setOrderQuantity(3);
 
 //        ASSERT
-        assertThrows(IllegalArgumentException.class, ()-> serviceLayer.generateInvoice(orderViewModel));
+        assertThrows(IllegalArgumentException.class, ()-> serviceLayer.generateInvoice(order));
     }
 }

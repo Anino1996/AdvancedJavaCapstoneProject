@@ -21,18 +21,6 @@ public class OrderController {
     @RequestMapping(value = "/order", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
     public Invoice placeOrder(@RequestBody @Valid Order order) {
-        final ItemDao itemDao = serviceLayer.getDao(order.getItemType());
-        final OrderViewModel orderViewModel = new OrderViewModel();
-
-        orderViewModel.setName(order.getName());
-        orderViewModel.setStreet(order.getStreet());
-        orderViewModel.setCity(order.getCity());
-        orderViewModel.setState(order.getState());
-        orderViewModel.setZipCode(order.getZipCode());
-        orderViewModel.setItemType(order.getItemType());
-        orderViewModel.setItem(itemDao.findById(order.getItemId()));
-        orderViewModel.setOrderQuantity(order.getOrderQuantity());
-
-        return serviceLayer.generateInvoice(orderViewModel);
+        return serviceLayer.generateInvoice(order);
     }
 }

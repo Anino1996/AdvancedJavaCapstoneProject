@@ -3,6 +3,7 @@ package com.capstone.AninPringleOfori.service;
 import com.capstone.AninPringleOfori.dao.*;
 import com.capstone.AninPringleOfori.factory.ItemDaoFactory;
 import com.capstone.AninPringleOfori.model.order.Invoice;
+import com.capstone.AninPringleOfori.model.order.Order;
 import com.capstone.AninPringleOfori.model.order.ProcessingFee;
 import com.capstone.AninPringleOfori.view.OrderViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,10 @@ public class ServiceLayer {
     }
 
     @Transactional
-    public Invoice generateInvoice(OrderViewModel viewModel) {
+    public Invoice generateInvoice(Order order) {
+        final ItemDao itemDao = getDao(order.getItemType().toLowerCase());
+        OrderViewModel viewModel = buildViewModel(order, itemDao);
+
         // Find the subtotal fee
         double subtotal = viewModel.getOrderQuantity() * viewModel.getItem().getPrice();
 
@@ -42,7 +46,7 @@ public class ServiceLayer {
                 processingFeeDao.getFee(viewModel.getItemType()));
 
         // Update the orderQuantity
-        getDao(viewModel.getItemType()).decrementQuantity(viewModel.getItem(), viewModel.getOrderQuantity());
+        itemDao.decrementQuantity(viewModel.getItem(), viewModel.getOrderQuantity());
 
         // Generate the invoice
         Invoice invoice = new Invoice();
@@ -51,7 +55,7 @@ public class ServiceLayer {
         invoice.setCity(viewModel.getCity());
         invoice.setState(viewModel.getState());
         invoice.setZipCode(viewModel.getZipCode());
-        invoice.setItemType(viewModel.getItemType());
+        invoice.setItemType(viewModel.getItemType().toLowerCase());
         invoice.setItemId(viewModel.getItem().getId());
         invoice.setUnitPrice(viewModel.getItem().getPrice());
         invoice.setOrderQuantity(viewModel.getOrderQuantity());
@@ -63,6 +67,21 @@ public class ServiceLayer {
         return invoiceDao.addInvoice(invoice);
     }
 
+    private OrderViewModel buildViewModel(Order order, ItemDao itemDao) {
+        final OrderViewModel orderViewModel = new OrderViewModel();
+
+        orderViewModel.setName(order.getName());
+        orderViewModel.setStreet(order.getStreet());
+        orderViewModel.setCity(order.getCity());
+        orderViewModel.setState(order.getState());
+        orderViewModel.setZipCode(order.getZipCode());
+        orderViewModel.setItemType(order.getItemType().toLowerCase());
+        orderViewModel.setItem(itemDao.findById(order.getItemId()));
+        orderViewModel.setOrderQuantity(order.getOrderQuantity());
+
+        return orderViewModel;
+    }
+
     private double calculateTax(double subtotal, double rate) {
         return subtotal * rate;
     }
@@ -71,7 +90,7 @@ public class ServiceLayer {
         return processingFee.getFee() + (orderQuantity > 10 ? SURGE_PROCESSING_FEE : 0);
     }
 
-    public ItemDao getDao(String itemType) {
+    private ItemDao getDao(String itemType) {
         return daoFactory.getDaoInstance(itemType);
     }
 }
