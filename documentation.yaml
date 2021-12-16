@@ -703,7 +703,7 @@ components:
         unitPrice:
           type: number
           format: double
-        quantity:
+        orderQuantity:
           type: integer
           format: int32
         subTotal:
