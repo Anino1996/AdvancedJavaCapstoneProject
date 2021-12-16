@@ -41,7 +41,7 @@ public class ServiceLayer {
         double processingFee = findProcessingFee(viewModel.getOrderQuantity(),
                 processingFeeDao.getFee(viewModel.getItemType()));
 
-        // Update the quantity
+        // Update the orderQuantity
         getDao(viewModel.getItemType()).decrementQuantity(viewModel.getItem(), viewModel.getOrderQuantity());
 
         // Generate the invoice
@@ -54,7 +54,7 @@ public class ServiceLayer {
         invoice.setItemType(viewModel.getItemType());
         invoice.setItemId(viewModel.getItem().getId());
         invoice.setUnitPrice(viewModel.getItem().getPrice());
-        invoice.setQuantity(viewModel.getOrderQuantity());
+        invoice.setOrderQuantity(viewModel.getOrderQuantity());
         invoice.setSubTotal(subtotal);
         invoice.setTax(totalTax);
         invoice.setProcessingFee(processingFee);

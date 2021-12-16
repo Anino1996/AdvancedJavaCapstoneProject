@@ -83,7 +83,7 @@ public class ConsoleDaoImpl implements ConsoleDao {
     @Override
     public void decrementQuantity(Item item, int orderQuantity) {
         if (orderQuantity > item.getOrderQuantity()) {
-            throw new IllegalArgumentException(String.format("Order quantity cannot be greater than %s", item.getOrderQuantity()));
+            throw new IllegalArgumentException(String.format("Order orderQuantity cannot be greater than %s", item.getOrderQuantity()));
         }
         item.setOrderQuantity(item.getOrderQuantity() - orderQuantity);
         updateConsole((Console) item);

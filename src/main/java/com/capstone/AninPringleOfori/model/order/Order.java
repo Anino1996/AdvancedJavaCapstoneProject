@@ -2,6 +2,7 @@ package com.capstone.AninPringleOfori.model.order;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import java.util.Objects;
 
 public class Order {
     @NotNull(message = "name must be specified.")
@@ -90,5 +91,32 @@ public class Order {
 
     public void setOrderQuantity(int orderQuantity) {
         this.orderQuantity = orderQuantity;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Order order = (Order) o;
+        return getItemId() == order.getItemId() && getOrderQuantity() == order.getOrderQuantity() && getName().equals(order.getName()) && getStreet().equals(order.getStreet()) && getCity().equals(order.getCity()) && getState().equals(order.getState()) && getZipCode().equals(order.getZipCode()) && getItemType().equals(order.getItemType());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getName(), getStreet(), getCity(), getState(), getZipCode(), getItemType(), getItemId(), getOrderQuantity());
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "name='" + name + '\'' +
+                ", street='" + street + '\'' +
+                ", city='" + city + '\'' +
+                ", state='" + state + '\'' +
+                ", zipCode='" + zipCode + '\'' +
+                ", itemType='" + itemType + '\'' +
+                ", itemId=" + itemId +
+                ", orderQuantity=" + orderQuantity +
+                '}';
     }
 }

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class InvoiceDaoImpl implements InvoiceDao {
 
-    public static final String ADD_INVOICE_SQL = "insert into invoice(name, street, city, state, zipcode, item_type, item_id, unit_price, quantity, subtotal, tax, processing_fee, total) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    public static final String ADD_INVOICE_SQL = "insert into invoice(name, street, city, state, zipcode, item_type, item_id, unit_price, orderQuantity, subtotal, tax, processing_fee, total) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     JdbcTemplate jdbcTemplate;
 
     @Autowired
@@ -27,7 +27,7 @@ public class InvoiceDaoImpl implements InvoiceDao {
                 invoice.getItemType(),
                 invoice.getItemId(),
                 invoice.getUnitPrice(),
-                invoice.getQuantity(),
+                invoice.getOrderQuantity(),
                 invoice.getSubTotal(),
                 invoice.getTax(),
                 invoice.getProcessingFee(),

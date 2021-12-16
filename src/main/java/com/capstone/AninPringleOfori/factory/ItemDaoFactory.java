@@ -25,5 +25,10 @@ public class ItemDaoFactory {
                 "console", consoleDao);
     }
 
-    public ItemDao getDaoInstance(String itemType) { return orderUpdateDaoMap.get(itemType.toLowerCase()); }
+    public ItemDao getDaoInstance(String itemType) {
+        if (orderUpdateDaoMap.containsKey(itemType)) {
+            return orderUpdateDaoMap.get(itemType.toLowerCase());
+        }
+        throw new IllegalArgumentException("Invalid itemType specified: Must be 'tshirt', 'game' or 'console'.");
+    }
 }

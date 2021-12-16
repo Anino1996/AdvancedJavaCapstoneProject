@@ -18,8 +18,6 @@ import org.springframework.test.web.servlet.MvcResult;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -45,7 +43,7 @@ public class GameControllerTest {
     List<Game> games;
 
     @Before
-    public void setUp() {
+    public void setUp() throws Exception {
         game1 = new Game();
         game1.setId(1);
         game1.setTitle("Forespoken");
@@ -56,7 +54,6 @@ public class GameControllerTest {
         game1.setOrderQuantity(400);
 
         game2 = new Game();
-
         game2.setId(2);
         game2.setTitle("Watch Dogs");
         game2.setStudio("Ubisoft");
@@ -151,7 +148,7 @@ public class GameControllerTest {
                 .andReturn();
     }
 
-    
+
     @Test
     public void findAllGamesShouldReturnOKResponseAndListOfGames() throws Exception {
         when(gameDao.findAllGames()).thenReturn(games);

@@ -6,21 +6,27 @@ import java.util.Objects;
 public class Invoice {
 
     public int invoiceId;
+
     @NotNull
     public String name;
+
     @NotNull
     public String street;
+
     @NotNull
     public String city;
+
     @NotNull
     public String state;
+
     @NotNull
     public String zipCode;
+
     @NotNull
     public String itemType;
     public int itemId;
     public double unitPrice;
-    public int quantity;
+    public int orderQuantity;
     public double subTotal;
     public double tax;
     public double processingFee;
@@ -98,12 +104,12 @@ public class Invoice {
         this.unitPrice = unitPrice;
     }
 
-    public int getQuantity() {
-        return quantity;
+    public int getOrderQuantity() {
+        return orderQuantity;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+    public void setOrderQuantity(int orderQuantity) {
+        this.orderQuantity = orderQuantity;
     }
 
     public double getSubTotal() {
@@ -143,11 +149,42 @@ public class Invoice {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Invoice invoice = (Invoice) o;
-        return getInvoiceId() == invoice.getInvoiceId() && getItemId() == invoice.getItemId() && Double.compare(invoice.getUnitPrice(), getUnitPrice()) == 0 && getQuantity() == invoice.getQuantity() && Double.compare(invoice.getSubTotal(), getSubTotal()) == 0 && Double.compare(invoice.getTax(), getTax()) == 0 && Double.compare(invoice.getProcessingFee(), getProcessingFee()) == 0 && Double.compare(invoice.getTotal(), getTotal()) == 0 && getName().equals(invoice.getName()) && getStreet().equals(invoice.getStreet()) && getCity().equals(invoice.getCity()) && getState().equals(invoice.getState()) && getZipCode().equals(invoice.getZipCode()) && getItemType().equals(invoice.getItemType());
+        return getItemId() == invoice.getItemId() &&
+                Double.compare(invoice.getUnitPrice(), getUnitPrice()) == 0 &&
+                getOrderQuantity() == invoice.getOrderQuantity() &&
+                Double.compare(invoice.getSubTotal(), getSubTotal()) == 0 &&
+                Double.compare(invoice.getTax(), getTax()) == 0 &&
+                Double.compare(invoice.getProcessingFee(), getProcessingFee()) == 0 &&
+                Double.compare(invoice.getTotal(), getTotal()) == 0 &&
+                getName().equals(invoice.getName()) &&
+                getStreet().equals(invoice.getStreet()) &&
+                getCity().equals(invoice.getCity()) &&
+                getState().equals(invoice.getState()) &&
+                getZipCode().equals(invoice.getZipCode()) &&
+                getItemType().equals(invoice.getItemType());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getInvoiceId(), getName(), getStreet(), getCity(), getState(), getZipCode(), getItemType(), getItemId(), getUnitPrice(), getQuantity(), getSubTotal(), getTax(), getProcessingFee(), getTotal());
+        return Objects.hash(getName(), getStreet(), getCity(), getState(), getZipCode(), getItemType(), getItemId(), getUnitPrice(), getOrderQuantity(), getSubTotal(), getTax(), getProcessingFee(), getTotal());
+    }
+
+    @Override
+    public String toString() {
+        return "Invoice{" +
+                "name='" + name + '\'' +
+                ", street='" + street + '\'' +
+                ", city='" + city + '\'' +
+                ", state='" + state + '\'' +
+                ", zipCode='" + zipCode + '\'' +
+                ", itemType='" + itemType + '\'' +
+                ", itemId=" + itemId +
+                ", unitPrice=" + unitPrice +
+                ", orderQuantity=" + orderQuantity +
+                ", subTotal=" + subTotal +
+                ", tax=" + tax +
+                ", processingFee=" + processingFee +
+                ", total=" + total +
+                '}';
     }
 }
