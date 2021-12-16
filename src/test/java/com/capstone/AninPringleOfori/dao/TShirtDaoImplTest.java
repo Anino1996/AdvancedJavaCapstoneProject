@@ -12,8 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
@@ -74,7 +73,7 @@ public class TShirtDaoImplTest {
         tShirtDao.deletetShirt(tShirt1.getId());
 
 //        ASSERT
-        assertThrows(EmptyResultDataAccessException.class, () -> tShirtDao.findById(tShirt1.getId()));
+        assertNull(tShirtDao.findById(tShirt1.getId()));
     }
 
     @Test
