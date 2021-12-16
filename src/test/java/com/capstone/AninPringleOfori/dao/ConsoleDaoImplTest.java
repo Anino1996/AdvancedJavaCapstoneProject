@@ -75,7 +75,7 @@ public class ConsoleDaoImplTest {
         consoleDao.deleteConsole(console1.getId());
 
 //        ASSERT
-        assertNull(consoleDao.findById(console1.getId()));
+        assertThrows(IllegalArgumentException.class, () -> consoleDao.findById(console1.getId()));
     }
 
     @Test

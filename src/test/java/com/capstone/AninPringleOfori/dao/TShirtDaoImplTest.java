@@ -7,7 +7,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.List;
@@ -73,7 +72,7 @@ public class TShirtDaoImplTest {
         tShirtDao.deletetShirt(tShirt1.getId());
 
 //        ASSERT
-        assertNull(tShirtDao.findById(tShirt1.getId()));
+        assertThrows(IllegalArgumentException.class, () -> tShirtDao.findById(tShirt1.getId()));
     }
 
     @Test

@@ -75,7 +75,7 @@ public class GameDaoImplTest {
         gameDao.deleteGame(game1.getId());
 
 //        ASSERT
-        assertNull(gameDao.findById(game1.getId()));
+        assertThrows(IllegalArgumentException.class, () -> gameDao.findById(game1.getId()));
     }
 
     @Test

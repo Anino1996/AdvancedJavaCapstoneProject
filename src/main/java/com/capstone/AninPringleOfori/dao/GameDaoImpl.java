@@ -52,7 +52,7 @@ public class GameDaoImpl implements GameDao {
         try {
             return jdbcTemplate.queryForObject(FIND_GAME_BY_ID_SQL, this::mapRowToGame, id);
         } catch (EmptyResultDataAccessException e) {
-            return null;
+            throw new IllegalArgumentException("Game with specified ID not found.");
         }
     }
 

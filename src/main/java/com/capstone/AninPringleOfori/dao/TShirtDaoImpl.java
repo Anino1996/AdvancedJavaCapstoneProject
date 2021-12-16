@@ -68,7 +68,7 @@ public class TShirtDaoImpl implements TShirtDao {
         try {
             return jdbcTemplate.queryForObject(FIND_TSHIRT_BY_ID_SQL, this::mapRowTotShirt, id);
         } catch (EmptyResultDataAccessException e) {
-            return null;
+            throw new IllegalArgumentException("T-shirt with specified ID not found.");
         }
     }
 

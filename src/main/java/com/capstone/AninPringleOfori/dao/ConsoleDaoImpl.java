@@ -54,7 +54,7 @@ public class ConsoleDaoImpl implements ConsoleDao {
         try {
             return jdbcTemplate.queryForObject(FIND_CONSOLE_BY_ID_SQL, this::mapRowToConsole, id);
         } catch (EmptyResultDataAccessException e) {
-            return null;
+            throw new IllegalArgumentException("Console with specified ID not found.");
         }
     }
 
@@ -83,7 +83,7 @@ public class ConsoleDaoImpl implements ConsoleDao {
     @Override
     public void decrementQuantity(Item item, int orderQuantity) {
         if (orderQuantity > item.getOrderQuantity()) {
-            throw new IllegalArgumentException(String.format("Order orderQuantity cannot be greater than %s", item.getOrderQuantity()));
+            throw new IllegalArgumentException(String.format("orderQuantity cannot be greater than %s", item.getOrderQuantity()));
         }
         item.setOrderQuantity(item.getOrderQuantity() - orderQuantity);
         updateConsole((Console) item);
