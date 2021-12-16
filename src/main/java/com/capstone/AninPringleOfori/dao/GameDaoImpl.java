@@ -3,6 +3,7 @@ package com.capstone.AninPringleOfori.dao;
 import com.capstone.AninPringleOfori.model.item.Game;
 import com.capstone.AninPringleOfori.model.item.Item;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -48,7 +49,11 @@ public class GameDaoImpl implements GameDao {
 
     @Override
     public Game findById(int id) {
-        return jdbcTemplate.queryForObject(FIND_GAME_BY_ID_SQL, this::mapRowToGame, id);
+        try {
+            return jdbcTemplate.queryForObject(FIND_GAME_BY_ID_SQL, this::mapRowToGame, id);
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
     }
 
     @Override

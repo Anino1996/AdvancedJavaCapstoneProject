@@ -11,13 +11,9 @@ import java.util.List;
 
 @RestController
 public class GameController {
-    private GameDao gameDao;
 
     @Autowired
-    public GameController(GameDao gameDao) {
-        this.gameDao = gameDao;
-    }
-
+    GameDao gameDao;
 
     @RequestMapping(value = "/game/create", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)

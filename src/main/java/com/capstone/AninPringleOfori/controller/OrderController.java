@@ -13,12 +13,10 @@ import javax.validation.Valid;
 
 @RestController
 public class OrderController {
-    final ServiceLayer serviceLayer;
 
     @Autowired
-    public OrderController(ServiceLayer serviceLayer) {
-        this.serviceLayer = serviceLayer;
-    }
+    ServiceLayer serviceLayer;
+
 
     @RequestMapping(value = "/order", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)

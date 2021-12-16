@@ -2,6 +2,7 @@ package com.capstone.AninPringleOfori.dao;
 
 import com.capstone.AninPringleOfori.model.order.SalesTaxRate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -22,7 +23,11 @@ public class SalesTaxRateDaoImpl implements SalesTaxRateDao {
 
     @Override
     public SalesTaxRate findSalesTax(String state) {
-        return jdbcTemplate.queryForObject(FIND_SALES_TAX_SQL, this::mapRowToSalesTax, state);
+        try {
+            return jdbcTemplate.queryForObject(FIND_SALES_TAX_SQL, this::mapRowToSalesTax, state);
+        } catch (EmptyResultDataAccessException e) {
+            throw new IllegalArgumentException("Invalid state specified.");
+        }
     }
 
     public SalesTaxRate mapRowToSalesTax(ResultSet resultSet, int rowNum) throws SQLException {

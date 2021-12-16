@@ -51,16 +51,4 @@ public class ControllerExceptionHandler {
 
         return responseEntity;
     }
-
-    @ExceptionHandler(value = {EmptyResultDataAccessException.class})
-    @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
-    public ResponseEntity<CustomErrorResponse> handleException(EmptyResultDataAccessException e) {
-
-        CustomErrorResponse errorResponse = new CustomErrorResponse("Item with specified id not found", HttpStatus.UNPROCESSABLE_ENTITY.toString());
-        errorResponse.setTimestamp(LocalDateTime.now());
-        errorResponse.setStatusCode(HttpStatus.UNPROCESSABLE_ENTITY.value());
-        ResponseEntity<CustomErrorResponse> responseEntity = new ResponseEntity<>(errorResponse, HttpStatus.UNPROCESSABLE_ENTITY);
-
-        return responseEntity;
-    }
 }

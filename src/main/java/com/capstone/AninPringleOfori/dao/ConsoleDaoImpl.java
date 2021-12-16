@@ -3,6 +3,7 @@ package com.capstone.AninPringleOfori.dao;
 import com.capstone.AninPringleOfori.model.item.Console;
 import com.capstone.AninPringleOfori.model.item.Item;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -50,7 +51,11 @@ public class ConsoleDaoImpl implements ConsoleDao {
 
     @Override
     public Console findById(int id) {
-        return jdbcTemplate.queryForObject(FIND_CONSOLE_BY_ID_SQL, this::mapRowToConsole, id);
+        try {
+            return jdbcTemplate.queryForObject(FIND_CONSOLE_BY_ID_SQL, this::mapRowToConsole, id);
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
     }
 
     @Override

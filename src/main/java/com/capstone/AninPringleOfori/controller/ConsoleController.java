@@ -11,12 +11,9 @@ import java.util.List;
 
 @RestController
 public class ConsoleController {
-    private ConsoleDao consoleDao;
 
     @Autowired
-    public ConsoleController(ConsoleDao consoleDao) {
-        this.consoleDao = consoleDao;
-    }
+    ConsoleDao consoleDao;
 
 
     @RequestMapping(value = "/console/create", method = RequestMethod.POST)
@@ -43,7 +40,6 @@ public class ConsoleController {
     @RequestMapping(value = "/console/manufacturer/{manufacturer}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public List<Console> getConsolesByManufacturer(@PathVariable String manufacturer) {
-        System.out.println(manufacturer);
         return consoleDao.findConsolesByManufacturer(manufacturer);
     }
 

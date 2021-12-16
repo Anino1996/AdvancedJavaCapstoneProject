@@ -12,12 +12,9 @@ import java.util.List;
 @RestController
 public class TShirtController {
 
+    @Autowired
     TShirtDao tShirtDao;
 
-    @Autowired
-    public TShirtController(TShirtDao tShirtDao) {
-        this.tShirtDao = tShirtDao;
-    }
 
     @RequestMapping(value = "/tshirt/create", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
@@ -25,11 +22,13 @@ public class TShirtController {
         return tShirtDao.addtShirt(tShirt);
     }
 
+
     @RequestMapping(value = "/tshirt/id/{id}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public TShirt gettShirt(@PathVariable int id) {
         return tShirtDao.findById(id);
     }
+
 
     @RequestMapping(value = "/tshirt/all", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
@@ -37,11 +36,13 @@ public class TShirtController {
         return tShirtDao.findAlltShirts();
     }
 
+
     @RequestMapping(value = "/tshirt/size/{size}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public List<TShirt> gettShirtBySize(@PathVariable String size) {
         return tShirtDao.findtShirtBySize(size);
     }
+
 
     @RequestMapping(value = "/tshirt/color/{color}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
@@ -49,11 +50,13 @@ public class TShirtController {
         return tShirtDao.findtShirtByColor(color);
     }
 
+
     @RequestMapping(value = "/tshirt/update", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.ACCEPTED)
     public void updatetShirt(@RequestBody @Valid TShirt tShirt) {
         tShirtDao.updatetShirt(tShirt);
     }
+
 
     @RequestMapping(value = "/tshirt/delete/{id}", method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.NO_CONTENT)

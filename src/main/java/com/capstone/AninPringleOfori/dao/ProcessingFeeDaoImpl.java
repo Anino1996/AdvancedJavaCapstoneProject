@@ -2,6 +2,7 @@ package com.capstone.AninPringleOfori.dao;
 
 import com.capstone.AninPringleOfori.model.order.ProcessingFee;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -21,7 +22,11 @@ public class ProcessingFeeDaoImpl implements ProcessingFeeDao {
 
     @Override
     public ProcessingFee getFee(String product_type) {
-        return jdbcTemplate.queryForObject(FIND_FEE_SQL, this::mapRowToProcessingFee, product_type);
+        try {
+            return jdbcTemplate.queryForObject(FIND_FEE_SQL, this::mapRowToProcessingFee, product_type);
+        } catch (EmptyResultDataAccessException e) {
+            throw new IllegalArgumentException("Invalid product type specified. Should be either 'tshirt', 'game' or 'console'");
+        }
     }
 
     public ProcessingFee mapRowToProcessingFee(ResultSet resultSet, int rowNum) throws SQLException {

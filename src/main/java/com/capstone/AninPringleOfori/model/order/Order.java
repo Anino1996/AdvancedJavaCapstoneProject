@@ -25,7 +25,7 @@ public class Order {
     @NotNull(message = "itemId must be specified.")
     public int itemId;
 
-    @Min(value = 1, message = "Quantity cannot be less than 1.")
+    @Min(value = 1, message = "orderQuantity cannot be less than 1.")
     public int orderQuantity;
 
     public String getName() {

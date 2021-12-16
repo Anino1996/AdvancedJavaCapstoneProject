@@ -3,6 +3,7 @@ package com.capstone.AninPringleOfori.dao;
 import com.capstone.AninPringleOfori.model.item.Item;
 import com.capstone.AninPringleOfori.model.item.TShirt;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -64,7 +65,11 @@ public class TShirtDaoImpl implements TShirtDao {
 
     @Override
     public TShirt findById(int id) {
-        return jdbcTemplate.queryForObject(FIND_TSHIRT_BY_ID_SQL, this::mapRowTotShirt, id);
+        try {
+            return jdbcTemplate.queryForObject(FIND_TSHIRT_BY_ID_SQL, this::mapRowTotShirt, id);
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
     }
 
     @Override
