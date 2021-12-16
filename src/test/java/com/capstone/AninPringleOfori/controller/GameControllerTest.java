@@ -77,12 +77,6 @@ public class GameControllerTest {
         games = Arrays.asList(game1, game2);
     }
 
-    private Game mockFindGame(int id) throws JsonProcessingException {
-        return games.stream().filter(game -> game.getId() == id)
-                .findFirst()
-                .orElse(null);
-    }
-
 
     @Test
     public void findByIdShouldReturnOkResponseAndGame() throws Exception {
