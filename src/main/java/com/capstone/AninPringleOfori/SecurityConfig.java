@@ -21,4 +21,3 @@ public class SecurityConfig extends ResourceServerConfigurerAdapter {
                 .mvcMatchers(HttpMethod.POST, "/order").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN", "ROLE_MANAGER");
     }
 }
-
